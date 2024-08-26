@@ -5,7 +5,7 @@ import axios from 'axios';
 const API_URL = 'http://102.23.206.244';
 const WORKER_API_URL = 'http://102.23.206.230';
 const token = localStorage.getItem('authToken');
-
+console.log(token);
 export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL}/auth/admin-login`, { email, password });
@@ -21,7 +21,7 @@ export const fetchExchangeRate = async () => {
   try {
     const response = await axios.get(`${API_URL}/auth/get-rate`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token} `,
       },
     });
 
@@ -140,7 +140,7 @@ export const fetchUserById = async (id) => {
   }
 };
 
-export const activateUser = async (id, token) => {
+export const activateUser = async (id) => {
   try {
     const response = await axios.put(
       `${API_URL}/auth/user/activate/${id}`,
@@ -158,23 +158,24 @@ export const activateUser = async (id, token) => {
   }
 };
 
-export const deactivateUser = async (id, token) => {
+export const deactivateUser = async (id) => {
   try {
     const response = await axios.put(
       `${API_URL}/auth/user/deactivate/${id}`,
-      {}, // No data to send, so an empty object is passed
+      {}, // No data to send
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          headers: {
+            Authorization: `Bearer ${token}`,
+        }
       }
     );
     return response.data;
   } catch (error) {
-    console.error('Error deactivating user:', error);
+    console.error('Error deactivating user:', error.response ? error.response.data : error.message);
     throw error;
   }
 };
+
 
 
 export const fetchCompanies = async (page = 1, pageSize = 20, sort = {}, search = '') => {
@@ -210,6 +211,7 @@ export const fetchCompanyById = async (companyId) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },});
+      console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
@@ -270,7 +272,6 @@ export const fetchTransactions = async (page = 1, pageSize = 20, sort = {}, sear
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log(response.data.data)
       
     const data = response.data.data;
     const total = parseInt(response.headers['x-total-count'], 10) || data.length;
@@ -291,7 +292,7 @@ export const fetchTransactions = async (page = 1, pageSize = 20, sort = {}, sear
         headers: {
           Authorization: `Bearer ${token}`,
         },}); 
-      // console.log(response.data)
+
       return response.data;
     } catch (error) {
       console.error('Error fetching transaction:', error);
