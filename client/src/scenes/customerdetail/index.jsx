@@ -3,7 +3,7 @@ import { Box, Typography, Button, useTheme } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from 'components/Header'; // Ensure this component exists
 import Loader from '../../loader/Loader'; // Adjust the path if necessary
-import { fetchRootUserById, /*activateRootUser, deactivateRootUser*/ } from '../../state/api';
+import { fetchRootUserById, activateRootUser, deactivateRootUser } from '../../state/api';
 
 const CustomerDetail = () => {
   const theme = useTheme();
@@ -32,8 +32,8 @@ const CustomerDetail = () => {
 
   const handleActivateUser = async () => {
     try {
-    //   await activateRootUser(id);
-    //   setIsActive(true);
+      await activateRootUser(id);
+      setIsActive(true);
     } catch (error) {
       setError(error.message);
     }
@@ -41,8 +41,8 @@ const CustomerDetail = () => {
 
   const handleDeactivateUser = async () => {
     try {
-    //   await deactivateRootUser(id);
-    //   setIsActive(false);
+      await deactivateRootUser(id);
+      setIsActive(false);
     } catch (error) {
       setError(error.message);
     }

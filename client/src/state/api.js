@@ -139,7 +139,43 @@ export const fetchUserById = async (id) => {
     throw error;
   }
 };
+// Activate a root user
+export const activateRootUser = async (id) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}/auth/root/activate/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error activating user:', error);
+    throw error;
+  }
+};
 
+// Deactivate a root user
+export const deactivateRootUser = async (id) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}/auth/root/deactivate/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error deactivating user:', error);
+    throw error;
+  }
+};
 export const activateUser = async (id) => {
   try {
     const response = await axios.put(
