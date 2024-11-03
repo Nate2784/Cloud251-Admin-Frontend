@@ -2,8 +2,8 @@ import { createApi,fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import axios from 'axios';
 
 // Base URL for the API
-const API_URL = 'http://102.23.206.244';
-const WORKER_API_URL = 'http://102.23.206.230';
+const API_URL = '';
+const WORKER_API_URL = '';
 const token = localStorage.getItem('authToken');
 console.log(token);
 export const loginUser = async (email, password) => {
